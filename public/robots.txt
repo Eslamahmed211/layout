@@ -1,4 +1,2 @@
 User-agent: *
 Disallow: /admin
-Sitemap: https://epcoupon.com/sitemap.xml
-
