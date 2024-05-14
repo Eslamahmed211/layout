@@ -1,0 +1,88 @@
+/* aside */
+.ul_show {
+    right: 0px;
+    transition: 0.3s ease-in-out 0s;
+}
+
+.layer_show {
+    display: block;
+}
+
+.layout{
+    margin-right: 0px;
+}
+aside {
+    right: -100%;
+    background: white;
+}
+
+nav:not(.profile_nav):not(.content nav){
+    padding: 10px 10px;
+}
+
+.avatar{
+    margin-left: 0px;
+    margin-right: 8px;
+}
+
+
+
+.content{
+    padding: 8px;
+}
+
+
+/******************************** new style **************************************************/
+
+aside .logo {
+    margin-bottom: 1.5rem;
+    margin-right: .0rem;
+    width: 75px;
+}
+aside ul {
+    padding-top: 15px;
+
+}
+
+.sub_items{
+    border-radius: 0.2rem;
+    border: 1px solid #DFE3E7;
+    margin: 0px;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.14) !important;
+
+}
+
+.sub_items  a{
+    padding: 10px 9px !important;
+}
+
+
+li.has-items.down::after {
+    transform: rotateZ(90deg);
+    top: 10px;
+}
+
+
+.actions{
+    margin-top: 5px !important;
+}
+
+.tab_content {
+    margin-top: 10px;
+}
+.profile_nav{
+    padding: 0px;
+}
+
+/* colors */
+
+.colors {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 300px;
+    left: -300px;
+
+}
+
+.colorsShow {
+    left: -10px;
+}
