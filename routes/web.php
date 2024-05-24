@@ -3,12 +3,33 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\User as UserAlias;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 
 
 include('auth_routes.php');
+
+Route::get('/', function () {
+    if (Auth::check()) {
+        return redirect("/home");
+    } else {
+        return redirect("/login");
+    }
+});
+
+
+
+
+Route::middleware("auth")->get('home', function () {
+    if (auth()->user()->role == 'admin') {
+        return redirect("admin/home");
+    } else if (auth()->user()->role == 'user') {
+        return redirect("users/home");
+    }
+});
+
 
 
 Route::prefix("profile")->middleware("auth")->group(function () {
@@ -35,7 +56,6 @@ Route::prefix("profile")->middleware("auth")->group(function () {
         $user->update($data);
 
         return Redirect::back()->with("success", "تم التعديل بنجاح");
-
     });
 
     Route::get('delete_img', function () {
@@ -77,9 +97,5 @@ Route::prefix("profile")->middleware("auth")->group(function () {
 
 
         return Redirect::back()->with("success", "تم  تغير كلمة السر بنجاح");
-
-
     });
-
-
 });

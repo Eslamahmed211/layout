@@ -53,7 +53,7 @@ class authController extends Controller
       } elseif ($user->active == 1) {
         auth::login(auth::user());
 
-        return redirect("admin/home");
+        return redirect("/home");
       } else {
         Auth::logout();
         return redirect("login")->withErrors("هناك خطأ ما يرجي التواصل معنا")->withInput();
