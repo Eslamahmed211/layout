@@ -1555,3 +1555,15 @@ ul svg {
     width: 22px !important;
     font-size: 18px !important;
 }
+
+
+.swal2-actions{
+    margin-top: 0px !important;
+}
+
+.swal2-container a{
+    font-size: 16px;
+    text-decoration: underline;
+    color: rgb(47,47,47);
+    
+}

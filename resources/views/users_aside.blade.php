@@ -18,7 +18,7 @@
 
         </x-layout.li>
 
-        <x-layout.li title="جهات الاتصال" class="" path="">
+        <x-layout.li title="جهات الاتصال" class="contacts" path="users/groups">
             <i class="fa-regular fa-address-book fa-fw"></i>
         </x-layout.li>
 

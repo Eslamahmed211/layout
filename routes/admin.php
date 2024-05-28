@@ -40,3 +40,5 @@ Route::prefix("settings")->middleware('checkRole:settings')->group(function () {
     Route::put('/', [settingsController::class, 'update']);
 
 });
+
+
