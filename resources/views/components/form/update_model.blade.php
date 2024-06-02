@@ -1,6 +1,8 @@
-@props(['path'])
+@props(['path' , "static"])
 
-<div class="modal fade" id="updateModel" tabindex="-1" aria-labelledby="Label_updateModel" aria-hidden="true">
+<div class="modal fade" @isset($static)
+data-bs-backdrop="static"
+@endisset id="updateModel" tabindex="-1" aria-labelledby="Label_updateModel" aria-hidden="true">
     <div class="modal-dialog">
         <form class="modal-content" method="post" autocomplete="off" action="/{{ $path }}">
             @csrf

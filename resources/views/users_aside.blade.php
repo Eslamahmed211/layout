@@ -24,7 +24,7 @@
 
 
 
-        <x-layout.li title="القوالب" class="" path="">
+        <x-layout.li title="القوالب" class="messages" path="users/messages">
             <x-icons.home></x-icons.home>
         </x-layout.li>
 

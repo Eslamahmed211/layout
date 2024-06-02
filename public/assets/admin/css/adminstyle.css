@@ -1557,13 +1557,27 @@ ul svg {
 }
 
 
-.swal2-actions{
+.swal2-actions {
     margin-top: 0px !important;
 }
 
-.swal2-container a{
+.swal2-container a {
     font-size: 16px;
     text-decoration: underline;
-    color: rgb(47,47,47);
-    
+    color: rgb(47, 47, 47);
+
+}
+
+
+.font_option {
+    width: fit-content;
+    margin-bottom: 10px;
+    height: 30px;
+    line-height: 1.5;
+    padding: .25rem .5rem;
+}
+
+#lc-emoji-picker.lcep-shown {
+    z-index: 9999999999999999 !important;
+    transform: none !important;
 }
