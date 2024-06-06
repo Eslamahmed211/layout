@@ -8,6 +8,8 @@
         <link rel="icon" href="{{ get_fav() }}" sizes="192x192" />
         <link rel="apple-touch-icon" href="{{ get_fav() }}" />
         <meta name="msapplication-TileImage" content="{{ get_fav() }}" />
+
+        
         @yield('css')
     </head>
 

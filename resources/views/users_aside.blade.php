@@ -24,11 +24,11 @@
 
 
 
-        <x-layout.li title="القوالب" class="messages" path="users/messages">
+        <x-layout.li title="الرسائل" class="messages" path="users/messages">
             <x-icons.home></x-icons.home>
         </x-layout.li>
 
-        <x-layout.li title="ارسال فوري" class="" path="">
+        <x-layout.li title="ارسال فوري" class="send" path="users/sent-text-message/direct">
             <i class="fa-regular fa-paper-plane fa-fw"></i>
 
         </x-layout.li>

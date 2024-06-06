@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\contactController;
 use App\Http\Controllers\messageController;
+use App\Http\Controllers\sendController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('home', function () {
@@ -27,12 +28,16 @@ Route::prefix("contacts")->group(function () {
     Route::get('changeOrder', [contactController::class, 'changeOrder']);
 });
 
-
-
 Route::prefix("messages")->group(function () {
     Route::get('/', [messageController::class, 'index']);
     Route::get('create', [messageController::class, 'create']);
     Route::post('/', [messageController::class, 'store']);
     Route::put('/', [messageController::class, 'update']);
     Route::DELETE('destroy', [messageController::class, 'destroy']);
+});
+
+
+Route::prefix("sent-text-message")->group(function () {
+    Route::get('direct', [sendController::class, 'sent_direct_index']);
+    Route::post('direct', [sendController::class, 'sent_direct']);
 });

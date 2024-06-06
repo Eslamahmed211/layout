@@ -63,7 +63,7 @@
             </x-form.input>
 
 
-            <x-form.textarea col="col-12" rows="8" required label="المحتوي" name="message">
+            <x-form.textarea class="hasEmogi" col="col-12" rows="8" required label="المحتوي" name="message">
                 <div class="row gap-2">
                     <button onclick="option('*' , 'message')" type="button"
                         class="font_option es-btn-primary">Bold</button>
@@ -91,7 +91,7 @@
             <x-form.input id="nameInput" col="col-12" required name="nameInput"></x-form.input>
 
 
-            <x-form.textarea col="col-12" rows="8" required label="المحتوي" name="messageInput">
+            <x-form.textarea class="hasEmogi" col="col-12" rows="8" required label="المحتوي" name="messageInput">
 
                 <div class="row gap-2">
                     <button onclick="option('*' , 'messageInput')" type="button"
@@ -166,7 +166,7 @@
             textarea.value += "[[Name]]";
         }
 
-        new lc_emoji_picker('textarea', {
+        new lc_emoji_picker('.hasEmogi', {
             use_noto_emojis: true,
             selection_callback: function(emoji, target_field) {
                 console.log(emoji, target_field);
