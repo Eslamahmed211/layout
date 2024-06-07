@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\contactController;
 use App\Http\Controllers\messageController;
 use App\Http\Controllers\sendController;
@@ -40,4 +41,12 @@ Route::prefix("messages")->group(function () {
 Route::prefix("sent-single-message")->group(function () {
     Route::get('/', [sendController::class, 'sent_single_index']);
     Route::post('/', [sendController::class, 'sent_direct']);
+});
+
+
+Route::prefix("campaigns")->group(function () {
+    Route::get('/', [CampaignController::class, 'index']);
+    Route::get('create', [CampaignController::class, 'create']);
+    Route::post('/', [CampaignController::class, 'store']);
+
 });

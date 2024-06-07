@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class campaign extends Model
 {
     use HasFactory;
+    use HasUuids;
+
 
     protected $fillable = ["name", "status", "form", "to", "started_at", "ended_at", "device_id", "message_id", "user_id"];
 

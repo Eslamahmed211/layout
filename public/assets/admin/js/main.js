@@ -8,7 +8,6 @@ $(".layer").click(function () {
     $(".layer").removeClass("layer_show");
 });
 
-
 $("#flip-products").click(function () {
     $("#panel-products").slideToggle(200);
     $("#flip-products.has-items").toggleClass("down");
@@ -27,17 +26,15 @@ function check(form) {
     var allFilled = true;
 
     form.find(".checkThis").each(function () {
-
-
-        if ($(this).hasClass('modelSelect')) {
-
-            if ($(this).select2('data')[0] == undefined || $(this).select2('data')[0].id === "") {
+        if ($(this).hasClass("modelSelect")) {
+            if (
+                $(this).select2("data")[0] == undefined ||
+                $(this).select2("data")[0].id === ""
+            ) {
                 allFilled = false;
                 return false;
             }
-
-        } else if ($(this).hasClass('select-dropdown')) {
-
+        } else if ($(this).hasClass("select-dropdown")) {
             var selectizeControl = $(".select-dropdown.checkThis")[0].selectize;
             var selectedValues = selectizeControl.getValue();
 
@@ -45,16 +42,12 @@ function check(form) {
                 allFilled = false;
                 return false;
             }
-
         } else {
-
             if ($(this).val().trim() === "") {
                 allFilled = false;
                 return false;
             }
         }
-
-
     });
 
     form.find("#submitBtn").prop("disabled", !allFilled);
@@ -64,7 +57,6 @@ function checkAllForms() {
     $("form").each(function () {
         check($(this));
     });
-
 }
 
 function checkUseDate() {
@@ -74,7 +66,6 @@ function checkUseDate() {
 $(document).ready(function () {
     checkAllForms();
 });
-
 
 var confirmCheckBox = document.getElementById("confirmCheckBox");
 if (confirmCheckBox) {
@@ -90,7 +81,11 @@ if (confirmCheckBox) {
 
 $(document).on("click", function (e) {
     var container = $(".select2-container--open");
-    if (container.length > 0 && !container.is(e.target) && container.has(e.target).length === 0) {
+    if (
+        container.length > 0 &&
+        !container.is(e.target) &&
+        container.has(e.target).length === 0
+    ) {
         $(".js-example-basic-single").select2("close");
     }
 });
@@ -109,7 +104,6 @@ function delete_model(e) {
     $("#delete_title").text(data_name);
     $("#delete_id").val(data_id);
 }
-
 
 function changeColor(colorName) {
     let color;
@@ -182,7 +176,6 @@ function changeColor(colorName) {
         mainBg = "#1b2225";
     }
 
-
     let rootStyles = document.documentElement.style;
 
     rootStyles.setProperty("--mainBg", `${mainBg}`);
@@ -197,8 +190,8 @@ function toggleColors() {
 function search() {
     var currentUrl = window.location.href;
 
-    if (currentUrl.indexOf('export=yes') === -1) {
-        if (currentUrl.indexOf('?') !== -1) {
+    if (currentUrl.indexOf("export=yes") === -1) {
+        if (currentUrl.indexOf("?") !== -1) {
             currentUrl = currentUrl + "&export=yes";
         } else {
             currentUrl = currentUrl + "/search?export=yes";
@@ -209,28 +202,48 @@ function search() {
     }
 }
 
-
-const toolbarOptions = [[{
-    header: 1,
-}, {
-    header: 2,
-},], ["bold", "italic", "underline", "strike", "clean"], [{
-    align: "",
-}, {
-    align: "center",
-}, {
-    align: "right",
-}, {
-    align: "justify",
-},], [{
-    list: "ordered",
-}, {
-    list: "bullet",
-},], ["link"], [{
-    color: [],
-}, {
-    background: [],
-},],];
+const toolbarOptions = [
+    [
+        {
+            header: 1,
+        },
+        {
+            header: 2,
+        },
+    ],
+    ["bold", "italic", "underline", "strike", "clean"],
+    [
+        {
+            align: "",
+        },
+        {
+            align: "center",
+        },
+        {
+            align: "right",
+        },
+        {
+            align: "justify",
+        },
+    ],
+    [
+        {
+            list: "ordered",
+        },
+        {
+            list: "bullet",
+        },
+    ],
+    ["link"],
+    [
+        {
+            color: [],
+        },
+        {
+            background: [],
+        },
+    ],
+];
 
 let quills = document.getElementsByClassName("quill");
 
@@ -241,18 +254,30 @@ for (let i = 0; i < quills.length; i++) {
         modules: {
             toolbar: toolbarOptions,
         },
-        formats: ["bold", "align", "italic", "underline", "strike", "header", "link", "list", "color", "background",],
+        formats: [
+            "bold",
+            "align",
+            "italic",
+            "underline",
+            "strike",
+            "header",
+            "link",
+            "list",
+            "color",
+            "background",
+        ],
     });
 
     quill.format("font", "cairo");
     quill.format("align", "right");
 }
 
-
 function favToggle(e, id) {
-
     $.ajax({
-        url: `/users/favToggle/${id}`, type: "GET", dataType: "json", success: function (response) {
+        url: `/users/favToggle/${id}`,
+        type: "GET",
+        dataType: "json",
+        success: function (response) {
             if (response.status == "created") {
                 $(e).find("svg").css("stroke", "red");
                 $(e).find("svg").css("fill", "red");
@@ -262,5 +287,4 @@ function favToggle(e, id) {
             }
         },
     });
-
 }
