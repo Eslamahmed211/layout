@@ -2,7 +2,7 @@
 
 use App\Models\User;
 use App\Models\setting;
-
+use Illuminate\Support\Facades\Http;
 
 if (!function_exists("path")) {
     function path($img)
@@ -60,3 +60,14 @@ function get_fav()
     return path(setting::where("key", "fav")->first()?->value);
 }
 
+
+function sendMessage($token, $to, $message)
+{
+    $response = Http::post(env("SCRIPT_URL") . "/send-message", [
+        'id' => $token,
+        'to' => "+" .  $to,
+        'message' => $message,
+    ]);
+
+    return $response->json();
+}

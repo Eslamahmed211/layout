@@ -6,16 +6,16 @@ use App\Models\device;
 use App\Models\message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Http;
+
 
 class sendController extends Controller
 {
-    function sent_direct_index()
+    function sent_single_index()
     {
         $devices = device::all();
         $messages = message::all();
 
-        return view("users/send/direct_index", compact("devices", "messages"));
+        return view("users/send/single", compact("devices", "messages"));
     }
 
     function sent_direct(Request $request)
@@ -42,14 +42,8 @@ class sendController extends Controller
         $device = device::find($request->device)->token;
         $message = message::find($request->message)->message;
 
-        $response = Http::post(env("SCRIPT_URL") . "/send-message", [
-            'id' => $device,
-            'to' => "+" . $request->to,
-            'message' => $message,
-        ]);
-
         try {
-            return json($response->json());
+            return json(sendMessage($device, $request->to, $message));
         } catch (\Throwable $th) {
             return json(["status" => "error", "message" => "هناك خطأ ما"]);
         }

@@ -37,7 +37,7 @@ Route::prefix("messages")->group(function () {
 });
 
 
-Route::prefix("sent-text-message")->group(function () {
-    Route::get('direct', [sendController::class, 'sent_direct_index']);
-    Route::post('direct', [sendController::class, 'sent_direct']);
+Route::prefix("sent-single-message")->group(function () {
+    Route::get('/', [sendController::class, 'sent_single_index']);
+    Route::post('/', [sendController::class, 'sent_direct']);
 });

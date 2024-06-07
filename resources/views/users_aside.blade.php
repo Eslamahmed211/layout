@@ -28,12 +28,12 @@
             <x-icons.home></x-icons.home>
         </x-layout.li>
 
-        <x-layout.li title="ارسال فوري" class="send" path="users/sent-text-message/direct">
+        <x-layout.li title="ارسال فردي" class="send" path="users/sent-single-message">
             <i class="fa-regular fa-paper-plane fa-fw"></i>
 
         </x-layout.li>
 
-        <x-layout.li title="رسائل مجدولة" class="" path="">
+        <x-layout.li title="الحملات الاعلانية" class="campaigns" path="users/campaigns">
             <i class="fa-regular fa-clock fa-fw"></i>
         </x-layout.li>
 
