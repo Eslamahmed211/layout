@@ -1,4 +1,4 @@
-@props(['id', 'title', 'path', 'img' , "static"])
+@props(['id', 'title', 'path', 'img', 'static'])
 
 <div class="modal fade" @isset($static)
 data-bs-backdrop="static"
@@ -32,3 +32,10 @@ data-bs-backdrop="static"
     </div>
 
 </div>
+
+
+
+
+
+
+

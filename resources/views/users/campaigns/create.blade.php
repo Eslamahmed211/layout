@@ -2,7 +2,7 @@
 
 
 @section('title')
-    <title>ارسال فردي</title>
+    <title>الحملات الاعلانية</title>
 @endsection
 
 
@@ -13,8 +13,6 @@
         <div class="actions border-0">
             <x-layout.back back="users/campaigns" title="الحملات الاعلانية"></x-layout.back>
         </div>
-
-
 
         <form class="row form_style">
 
@@ -47,11 +45,94 @@
 
             <x-form.button onclick="send()" id="submitBtn" type="button" title="حفظ الحملة "></x-form.button>
         </form>
+
+
+
+        <div class="actions border-0">
+
+            <div class="d-flex align-items-center">
+
+
+                <h1 class="contnet-title"> الارقام </h1>
+
+            </div>
+
+            <div class="d-flex gap-2">
+
+
+                <div class="d-flex justify-content-end">
+                    <div>
+                        <button class="es-btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#createModel">
+                            إضافة رقم
+                            <svg width="16px" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"></path>
+                            </svg>
+
+                        </button>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="tableSpace">
+            <table id="sortable-table" class="mb-3">
+
+                <tbody class="clickable">
+
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="createModel" tabindex="-1" aria-labelledby="Label_createModel" aria-hidden="true">
+        <div class="modal-dialog  ">
+            <form class="modal-content">
+
+                <div id="model_loader">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                </div>
+
+                @csrf
+
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="Label_createModel">اضافة رقم جديد</h1>
+
+                    <x-form.button type="button" icon="close" class="close" data-bs-dismiss="modal"
+                        aria-label="Close"></x-form.button>
+
+                </div>
+                <div class="modal-body">
+                    <div class="row g-2">
+                        <x-form.input col="col-12" label="الاسم" name="name"></x-form.input>
+
+                        <x-form.input col="col-12" required placeholder="2010xxxxxxx" label="الرقم مع كود المحافظة"
+                            name="phone"></x-form.input>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <x-form.button type="button" onclick="addManualRow()" id="submitBtn" icon="plus"
+                        title="اضافة رقم جديد"></x-form.button>
+                    <x-form.button class="close" type="button" data-bs-dismiss="modal" title="اغلاق"></x-form.button>
+                </div>
+            </form>
+        </div>
+
     </div>
 @endsection
 
 
 @section('js')
+    <x-move type="users" model="contacts"></x-move>
+
+
     <script>
         $('aside .campaigns').addClass('active');
         $('.modelSelect').select2()
@@ -105,60 +186,51 @@
                     })
                 }
             });
+        }
 
 
-
-            // if (device === "" || message === "" || to === "") {
-            //     Swal.fire({
-            //         title: 'خطا!',
-            //         text: "يرجي ملئ جميع الحقول",
-            //         icon: 'error',
-            //         confirmButtonText: 'فهمت'
-            //     })
-            // } else {
-
-            //     $.ajax({
-            //         url: "/users/sent-single-message",
-            //         type: "POST",
-            //         data: {
-            //             device: device,
-            //             message: message,
-            //             to: to
-            //         },
-            //         beforeSend: function(xhr) {
-            //             xhr.setRequestHeader('X-CSRF-Token',
-            //                 "{{ csrf_token() }}");
-            //         },
-            //         success: function(data) {
-
-            //             if (data.status == "error") {
-            //                 Swal.fire({
-            //                     title: 'خطا!',
-            //                     text: data.message,
-            //                     icon: 'error',
-            //                     confirmButtonText: 'فهمت'
-            //                 })
-            //             } else if (data.status == "success") {
-            //                 Swal.fire({
-            //                     title: 'تم',
-            //                     text: data.message,
-            //                     icon: 'success',
-            //                     confirmButtonText: 'فهمت'
-            //                 })
-            //             }
+        function deleteRow(e) {
+            var row = $(e).closest('tr');
+            if (row) {
+                row.remove();
+            }
+        }
 
 
-            //         },
-            //         error: function(xhr, status, error) {
-            //             Swal.fire({
-            //                 title: 'خطا!',
-            //                 text: 'هناك خطأ ما ',
-            //                 icon: 'error',
-            //                 confirmButtonText: 'فهمت'
-            //             })
-            //         }
-            //     });
-            // }
+        function addManualRow() {
+            let name = $("#createModel #name").val();
+            let phone = $("#createModel #phone").val();
+
+
+            let cartona = `<tr>
+                        <td>
+                            <x-icons.move></x-icons.move> 
+                        </td>
+
+                        <td>
+                        ${phone}
+                        </td>
+
+
+                        <td>${name}</td>
+
+                        <td>
+                            <div onclick="deleteRow(this)" data-tippy-content="حذف" class="square-btn delete-btn ltr has-tip"><i
+                                    class="far fa-trash-alt mr-2 icon "></i>
+                            </div>
+                        </td>
+
+
+                    </tr>`
+
+            $("tbody").append(cartona);
+
+            $("#createModel #name").val("");
+            $("#createModel #phone").val("");
+
+            $("#createModel").modal('hide');
+
+
         }
     </script>
 @endsection
