@@ -983,6 +983,27 @@ td {
     font-size: 10px;
 }
 
+.pindding {
+    background-color: rgb(232, 237, 241);
+    color: rgb(95, 115, 140) !important;
+    padding: 3px 12px;
+    border-radius: 3px;
+    font-weight: 700;
+    font-size: 10px;
+}
+
+
+.done {
+    background-color: rgb(236, 248, 247);
+    color: rgb(0, 92, 78) !important;
+    padding: 3px 12px;
+    border-radius: 3px;
+    font-weight: 700;
+    font-size: 10px;
+}
+
+
+
 .tryAgain {
     background-color: rgb(253, 240, 227);
     color: rgb(128, 63, 0) !important;

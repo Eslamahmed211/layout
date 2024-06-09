@@ -53,7 +53,10 @@
             <div class="d-flex align-items-center">
 
 
-                <h1 class="contnet-title"> الارقام </h1>
+                <h1 class="contnet-title"> الارقام <div onclick="deleteAllRows()" data-tippy-content="حذف"
+                        class="square-btn delete-btn ltr has-tip"><i class="far fa-trash-alt mr-2 icon "></i>
+                    </div>
+                </h1>
 
             </div>
 
@@ -128,7 +131,8 @@
     </div>
 
 
-    <div class="modal fade" id="importFromGroup" tabindex="-1" aria-labelledby="LabelimportFromGroup" aria-hidden="true">
+    <div class="modal fade" id="importFromGroup" tabindex="-1" aria-labelledby="LabelimportFromGroup"
+        aria-hidden="true">
         <div class="modal-dialog  ">
             <form class="modal-content">
 
@@ -170,7 +174,6 @@
 @section('js')
     <x-move type="users" model="contacts"></x-move>
 
-
     <script>
         $('aside .campaigns').addClass('active');
         $('.modelSelect').select2()
@@ -182,7 +185,7 @@
 
         flatpickr('input.date', {
             enableTime: true,
-            dateFormat: "Y-m-d h:i",
+            time_24hr: false,
             minDate: "today",
 
             onChange: function(selectedDates, dateStr, instance) {
@@ -235,7 +238,11 @@
                             text: data.message,
                             icon: 'success',
                             confirmButtonText: 'فهمت'
-                        })
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = "/users/campaigns";
+                            }
+                        });
                     }
                 },
                 error: function(xhr, status, error) {
@@ -326,7 +333,7 @@
                         </td>
 
 
-                        <td class="td_name">${element.name}</td>
+                        <td class="td_name">${element.name ?? ''}</td>
 
                         <td>
                             <div onclick="deleteRow(this)" data-tippy-content="حذف" class="square-btn delete-btn ltr has-tip"><i
@@ -358,6 +365,10 @@
                 }
             });
 
+        }
+
+        function deleteAllRows() {
+            $("tbody").html("");
         }
     </script>
 @endsection

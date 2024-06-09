@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Validator;
 class CampaignController extends Controller
 {
 
+    function index()
+    {
+        $campaigns = campaign::withCount("numbers")->get();
+
+        return view("users.campaigns.index", get_defined_vars());
+    }
+
     function create()
     {
         $devices = device::all();
@@ -34,7 +41,7 @@ class CampaignController extends Controller
             'message_id' => 'required|integer',
             'from' => 'required|integer',
             'to' => 'required|integer',
-            'started_at' => 'required|date_format:Y-m-d h:i'
+            'started_at' => 'required'
         ], [
             'device.required' => 'يرجي اخيار رقم',
             'message.required' => 'يرجي اخيار رسالة',
@@ -118,13 +125,17 @@ class CampaignController extends Controller
 
             $insterd = campaign::create($validator->validated());
 
+            $index = 1;
             foreach ($validator_numbers->validated()["numbers"] as $contact) {
 
                 campaignContact::create([
                     "name" => $contact["name"],
                     "phone" => $contact["phone"],
-                    "campaign_id" => $insterd->id
+                    "campaign_id" => $insterd->id,
+                    "order" =>     $index
                 ]);
+
+                $index++;
             }
 
 

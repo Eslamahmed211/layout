@@ -36,8 +36,7 @@ class RunCampaigns extends Command
     {
         $now = Carbon::now();
 
-
-        $campaigns = DB::table("campaigns")->where('status', 'pending')->get();
+        $campaigns = DB::table("campaigns")->whereIn('status', ["pending",  "running"])->where("started_at", "<=", $now)->get();
 
 
         foreach ($campaigns as $campaign) {
@@ -45,19 +44,29 @@ class RunCampaigns extends Command
             $this->info('Running campaign: ' . $campaign->name);
 
 
-            $contact = DB::table('campaign_contacts')->where("campaign_id", $campaign->id)->where("status", "sending")->first();
+            $contact = DB::table('campaign_contacts')->where("campaign_id", $campaign->id)->where("status", "sending")->orderBy("order", "asc")->first();
 
             if (!isset($contact)) {
-                $contact = DB::table('campaign_contacts')->where("campaign_id", $campaign->id)->where("status", "pending")->first();
+
+                $contact = DB::table('campaign_contacts')->where("campaign_id", $campaign->id)->where("status", "pending")->orderBy("order", "asc")->first();
+
                 if (isset($contact)) {
-
-
                     $this->sendMessage($campaign, $contact);
+
+                    if ($campaign->status == "pending") {
+                        DB::table('campaigns')
+                            ->where('id', $campaign->id)
+                            ->update(['status' => "running"]);
+                    }
                 } else {
 
                     DB::table('campaigns')
                         ->where('id', $campaign->id)
-                        ->update(['status' => "complete"]);
+                        ->update([
+                            'status' => 'complete',
+                            'ended_at' => Carbon::now()
+                        ]);
+
 
                     $this->info('campaign: ' . $campaign->name . " complate ");
                 }

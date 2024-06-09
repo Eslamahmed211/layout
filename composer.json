@@ -12,7 +12,8 @@
     "cocur/slugify": "^4.5",
     "laravel/framework": "^11.0",
     "laravel/tinker": "^2.9",
-    "maatwebsite/excel": "^3.1"
+    "maatwebsite/excel": "^3.1",
+    "opcodesio/log-viewer": "^3.10"
   },
   "require-dev": {
     "barryvdh/laravel-debugbar": "^3.13",
