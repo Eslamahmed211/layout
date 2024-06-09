@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->string('name')->nullable();
             $table->string('phone');
-            $table->enum('status', ["pending", "success", "failed"])->default("pending");
+            $table->enum('status', ["pending", "success", "failed" , "sending"])->default("pending");
 
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->integer('order')->default(0);
