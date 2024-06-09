@@ -9,7 +9,7 @@ class campaignContact extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["name", "number", "status", "user_id", "order"];
+    protected $fillable = ["name", "phone", "status", "user_id", "order" , "campaign_id"];
 
 
     protected static function booted()

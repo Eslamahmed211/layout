@@ -17,6 +17,12 @@ class contactController extends Controller
         return view("users/groups/index", compact("groups"));
     }
 
+    function show(group $group)
+    {
+        return json(["status" => "success", "data" => $group->contacts]);
+    }
+
+
     public function destroy(Request $request)
     {
         $group = group::findOrFail($request->delete_id);

@@ -20,6 +20,8 @@ Route::prefix("groups")->group(function () {
     Route::get('{group}/contacts', [contactController::class, 'contacts_index']);
     Route::post('{group}/upload_contacts_file', [contactController::class, 'upload_contacts_file']);
     Route::get('{group}/export', [contactController::class, 'export']);
+    Route::get('{group}', [contactController::class, 'show']);
+
 });
 
 Route::prefix("contacts")->group(function () {

@@ -25,4 +25,9 @@ class campaign extends Model
             $model->user_id = auth()->id();
         });
     }
+
+    function  numbers()
+    {
+        return $this->hasMany(campaignContact::class , "campaign_id");
+    }
 }
