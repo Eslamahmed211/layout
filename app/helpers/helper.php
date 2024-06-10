@@ -63,6 +63,7 @@ function get_fav()
 
 function sendMessage($token, $to, $message)
 {
+
     $response = Http::post(env("SCRIPT_URL") . "/send-message", [
         'id' => $token,
         'to' => "+" .  $to,

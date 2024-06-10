@@ -38,7 +38,6 @@ class RunCampaigns extends Command
 
         $campaigns = DB::table("campaigns")->whereIn('status', ["pending",  "running"])->where("started_at", "<=", $now)->get();
 
-
         foreach ($campaigns as $campaign) {
 
             $this->info('Running campaign: ' . $campaign->name);
@@ -72,6 +71,8 @@ class RunCampaigns extends Command
                 }
             }
         }
+
+        
     }
 
     protected function sendMessage($campaign, $contact)

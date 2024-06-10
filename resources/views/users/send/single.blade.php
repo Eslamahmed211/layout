@@ -3,13 +3,34 @@
 
 @section('title')
     <title>ارسال فردي</title>
-@endsection
 
+    <style>
+        #loader {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 9;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            font-size: 40px;
+            color: var(--mainColor);
+            align-items: center;
+            display: none
+        }
+    </style>
+@endsection
 
 
 @section('content')
     <div class="content">
-        <form class="row form_style">
+        <form class="row form_style  position-relative">
+
+            <div id="loader">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+            </div>
+
+
             <x-form.select required col="col-lg-3 col-6" name="device" label="اختيار الرقم">
                 @foreach ($devices as $device)
                     <option value="{{ $device->id }}">{{ $device->name }}</option>
@@ -26,6 +47,8 @@
 
             <x-form.button onclick="send()" id="submitBtn" type="button" title="ارسال"></x-form.button>
         </form>
+
+
     </div>
 @endsection
 
@@ -61,8 +84,15 @@
                     beforeSend: function(xhr) {
                         xhr.setRequestHeader('X-CSRF-Token',
                             "{{ csrf_token() }}");
+
+                        $("#loader").addClass("d-flex");
+                        $("#loader").removeClass("d-none");
                     },
                     success: function(data) {
+
+                        $("#loader").addClass("d-none");
+                        $("#loader").removeClass("d-flex");
+
 
                         if (data.status == "error") {
                             Swal.fire({
@@ -83,6 +113,10 @@
 
                     },
                     error: function(xhr, status, error) {
+
+                        $("#loader").addClass("d-none");
+                        $("#loader").removeClass("d-flex");
+
                         Swal.fire({
                             title: 'خطا!',
                             text: 'هناك خطأ ما اثناء الارسال ',
