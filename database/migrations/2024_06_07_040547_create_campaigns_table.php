@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('campaigns', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
-            $table->enum('status', ["pending", "running", "complete"])->default("pending");
+            $table->enum('status', ["pending", "running", "complete" , "stoped"])->default("pending");
 
             $table->integer("form")->default(0);
             $table->integer("to")->default(0);

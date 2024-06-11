@@ -33,6 +33,7 @@
                         <th>الاسم</th>
                         <th>عدد الارقام</th>
                         <th>الحالة</th>
+                        <th>الاجرءات</th>
 
                     </tr>
                 </thead>
@@ -53,11 +54,16 @@
                                 <td><span class="done">قيد الارسال</span></td>
                             @endif
 
+                            <x-td_end normal id="{{ $campaign->id }}" name="{{ $campaign->name }}">
+                                <x-form.link style="height: 32px" target="_self" title="تعديل"
+                                    path="admin/campaigns/{{ $campaign->id }}/edit"></x-form.link>
+                            </x-td_end>
+
                         </tr>
 
                     @empty
                         <tr>
-                            <td colspan="3">لا يوجد حملات مضافة</td>
+                            <td colspan="4">لا يوجد حملات مضافة</td>
                         </tr>
                     @endforelse
 
@@ -68,7 +74,7 @@
         </div>
     </div>
 
-    <x-form.delete title="جهة الاتصال" path="users/groups/destroy"></x-form.delete>
+    <x-form.delete title="الحملة الاعلانية" path="users/campaigns/destroy"></x-form.delete>
 
     <x-form.update_model path="users/groups">
         <div class="row g-2">

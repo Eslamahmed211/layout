@@ -2,7 +2,9 @@
 
 use App\Models\User;
 use App\Models\setting;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 if (!function_exists("path")) {
     function path($img)
@@ -71,4 +73,24 @@ function sendMessage($token, $to, $message)
     ]);
 
     return $response->json();
+}
+
+function campaign_can_send($campaignId)
+{
+
+    $campaign = DB::table("campaigns")->find($campaignId);
+
+
+
+    if ($campaign == null) {
+
+
+        return false;
+    } else if ($campaign->status != "running" && $campaign->status != "pending") {
+
+
+        return false;
+    }
+
+    return true;
 }

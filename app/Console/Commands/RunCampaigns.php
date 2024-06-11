@@ -45,6 +45,7 @@ class RunCampaigns extends Command
 
             $contact = DB::table('campaign_contacts')->where("campaign_id", $campaign->id)->where("status", "sending")->orderBy("order", "asc")->first();
 
+
             if (!isset($contact)) {
 
                 $contact = DB::table('campaign_contacts')->where("campaign_id", $campaign->id)->where("status", "pending")->orderBy("order", "asc")->first();
@@ -71,8 +72,6 @@ class RunCampaigns extends Command
                 }
             }
         }
-
-        
     }
 
     protected function sendMessage($campaign, $contact)
@@ -84,7 +83,7 @@ class RunCampaigns extends Command
         $this->info("Sending message to ({$contact->phone}) in {$delay} seconds");
 
         try {
-            dispatch(new \App\Jobs\SendWhatsAppMessage($campaign->device_id, $campaign->message_id, $contact->phone, $contact->id))
+            dispatch(new \App\Jobs\SendWhatsAppMessage($campaign , $contact))
                 ->delay(now()->addSeconds($delay));
 
             DB::table('campaign_contacts')
