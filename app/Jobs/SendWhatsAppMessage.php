@@ -46,7 +46,6 @@ class SendWhatsAppMessage implements ShouldQueue
 
                 $this->updateContactStatus('pending');
                 $this->delete();
-
             } else {
 
 

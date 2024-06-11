@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->enum('status', ["pending", "running", "complete" , "stoped"])->default("pending");
 
-            $table->integer("form")->default(0);
+            $table->integer("from")->default(0);
             $table->integer("to")->default(0);
 
             $table->dateTime("started_at");

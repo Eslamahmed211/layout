@@ -9,7 +9,7 @@ class messageController extends Controller
 {
     function index()
     {
-        $messages  = message::all();
+        $messages  = message::orderBy("id" , "desc")->get();
         return view("users/messages/index", compact("messages"));
     }
 

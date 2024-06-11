@@ -50,5 +50,7 @@ Route::prefix("campaigns")->group(function () {
     Route::get('/', [CampaignController::class, 'index']);
     Route::get('create', [CampaignController::class, 'create']);
     Route::post('/', [CampaignController::class, 'store']);
+    Route::get('{campaign}/edit', [CampaignController::class, 'edit']);
+    Route::put('{campaign}', [CampaignController::class, 'update']);
 
 });

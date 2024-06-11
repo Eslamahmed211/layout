@@ -76,7 +76,7 @@ class RunCampaigns extends Command
 
     protected function sendMessage($campaign, $contact)
     {
-        $from = $campaign->form;
+        $from = $campaign->from;
         $to = $campaign->to;
         $delay = rand($from, $to);
 

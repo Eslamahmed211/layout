@@ -94,10 +94,7 @@ class CampaignController extends Controller
         }
 
 
-
-
-
-        $device_id = device::findOrFail($validator->validated()["device_id"]);
+        $device_id = device::find($validator->validated()["device_id"]);
         $message_id = message::find($validator->validated()["message_id"]);
 
         if (!$device_id) {
@@ -111,6 +108,14 @@ class CampaignController extends Controller
             return json([
                 "status" => "error",
                 'message' => 'الرسالة غير موجودة',
+            ]);
+        }
+
+        if ($validator->validated()["from"] > $validator->validated()["to"]) {
+
+            return json([
+                "status" => "error",
+                'message' => "لا يمكن ان يكون  الفاصل الزمني الثاني اكبر من الفاصل الزمني الاول",
             ]);
         }
 
@@ -144,6 +149,64 @@ class CampaignController extends Controller
             return json(["status" => "success", "message" => "تم حفظ الحملة بنجاح"]);
         } catch (\Throwable $th) {
             return json(["status" => "error", "message" => "هناك خطأ اثناء الحفظ"]);
+        }
+    }
+
+    function edit(campaign $campaign)
+    {
+        $devices = device::all();
+        $messages = message::all();
+        $groups = group::all();
+
+
+        return view("users/campaigns/edit", compact("devices", "messages", "groups", "campaign"));
+    }
+
+    function update(Request $request, campaign $campaign)
+    {
+
+        $data = $request->validate([
+            'name' => 'required|string',
+            'device_id' => 'required|integer',
+            'message_id' => 'required|integer',
+            'from' => 'required|integer',
+            'to' => 'required|integer',
+            'started_at' => 'required',
+            "status" => "required|in:pending,stoped"
+        ], [
+            'device.required' => 'يرجي اخيار رقم',
+            'message.required' => 'يرجي اخيار رسالة',
+            'name.required' => 'يرجي كتابة اسم الحملة',
+            'from.required' => 'يرجي كتابة الفاصل الزمني الاول',
+            'to.required' => 'يرجي كتابة الفاصل الزمني الثاني',
+            'started_at.required' => 'يرجي كتابة تاريخ بداية الحملة',
+
+        ]);
+
+
+        $device_id = device::find($data["device_id"]);
+        $message_id = message::find($data["message_id"]);
+
+        if (!$device_id) {
+            return redirect()->back()->with("error", 'الرقم غير موجود');
+        }
+        if (!$message_id) {
+
+            return redirect()->back()->with("error", 'الرسالة غير موجودة');
+        }
+
+        if ($data["from"] > $data["to"]) {
+            return redirect()->back()->with("error", "لا يمكن ان يكون  الفاصل الزمني الثاني اكبر من الفاصل الزمني الاول");
+        }
+
+        try {
+
+            $campaign->update($data);
+
+            return redirect()->back()->with("success", "تم التعديل بنجاح");
+        } catch (\Throwable $th) {
+
+            return redirect()->back()->with("error", "لم يتم التعديل");
         }
     }
 }

@@ -12,7 +12,7 @@ class campaign extends Model
     use HasUuids;
 
 
-    protected $fillable = ["name", "status", "form", "to", "started_at", "ended_at", "device_id", "message_id", "user_id"];
+    protected $fillable = ["name", "status", "from", "to", "started_at", "ended_at", "device_id", "message_id", "user_id"];
 
     protected static function booted()
     {

@@ -52,11 +52,13 @@
                                 <td><span class="pindding">انتظار</span></td>
                             @elseif($campaign->status == 'running')
                                 <td><span class="done">قيد الارسال</span></td>
+                            @elseif($campaign->status == 'stoped')
+                                <td><span class="pindding">متوقفة</span></td>
                             @endif
 
                             <x-td_end normal id="{{ $campaign->id }}" name="{{ $campaign->name }}">
                                 <x-form.link style="height: 32px" target="_self" title="تعديل"
-                                    path="admin/campaigns/{{ $campaign->id }}/edit"></x-form.link>
+                                    path="users/campaigns/{{ $campaign->id }}/edit"></x-form.link>
                             </x-td_end>
 
                         </tr>
