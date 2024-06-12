@@ -241,6 +241,15 @@ class CampaignController extends Controller
     }
 
 
+    public function destroy(Request $request)
+    {
+        $contact = campaign::where("user_id", auth()->id())->findOrFail($request->delete_id);
+        $contact->delete();
+        return redirect()->back()->with("success", "تم الازالة بنجاح");
+    }
+
+
+
     public function destroy_contact(Request $request)
     {
         $contact = campaignContact::where("user_id", auth()->id())->findOrFail($request->delete_id);

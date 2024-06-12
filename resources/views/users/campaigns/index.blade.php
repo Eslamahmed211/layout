@@ -76,7 +76,7 @@
 
                     @empty
                         <tr>
-                            <td colspan="4">لا يوجد حملات مضافة</td>
+                            <td colspan="6">لا يوجد حملات مضافة</td>
                         </tr>
                     @endforelse
 

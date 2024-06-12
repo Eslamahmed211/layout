@@ -62,6 +62,9 @@ Route::prefix("campaigns")->group(function () {
 
     Route::put('update_contact', [CampaignController::class, 'update_contact']);
 
+
+    Route::DELETE('destroy', [CampaignController::class, 'destroy']);
+
     Route::DELETE('contacts/destroy', [CampaignController::class, 'destroy_contact']);
 
 
