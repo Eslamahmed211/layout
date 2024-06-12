@@ -32,6 +32,8 @@
                     <tr>
                         <th>الاسم</th>
                         <th>عدد الارقام</th>
+                        <th>نجح</th>
+                        <th>فشل</th>
                         <th>الحالة</th>
                         <th>الاجرءات</th>
 
@@ -45,6 +47,15 @@
                             <td>{{ $campaign->name }}</td>
 
                             <td>{{ $campaign->numbers_count }}</td>
+
+                            <td> <span class="Delivered"
+                                    style="font-weight: 900 ; font-size: 12px">{{ $campaign->success_count }}</span> </td>
+
+                            <td> <span class="cancel"
+                                    style="font-weight: 900 ; font-size: 12px">{{ $campaign->failed_count }}</span> </td>
+
+
+
 
                             @if ($campaign->status == 'complete')
                                 <td><span class="Delivered">اكتملت</span></td>

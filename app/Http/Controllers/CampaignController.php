@@ -16,7 +16,7 @@ class CampaignController extends Controller
 
     function index()
     {
-        $campaigns = campaign::withCount("numbers")->get();
+        $campaigns = campaign::withCount("numbers")->withCount("success")->withCount("failed")->get();
 
         return view("users.campaigns.index", get_defined_vars());
     }

@@ -30,4 +30,24 @@ class campaign extends Model
     {
         return $this->hasMany(campaignContact::class, "campaign_id")->orderBy('order', 'asc');
     }
+
+    function  success()
+    {
+        return $this->hasMany(campaignContact::class, "campaign_id")->where('status', 'success');
+    }
+
+
+    function  failed()
+    {
+        return $this->hasMany(campaignContact::class, "campaign_id")->where('status', 'failed');
+    }
+
+    function  sending()
+    {
+        return $this->hasMany(campaignContact::class, "campaign_id")->where('status', 'sending');
+    }
+    function  pending()
+    {
+        return $this->hasMany(campaignContact::class, "campaign_id")->where('status', 'pending');
+    }
 }

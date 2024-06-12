@@ -4,10 +4,17 @@ use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\contactController;
 use App\Http\Controllers\messageController;
 use App\Http\Controllers\sendController;
+use App\Models\campaign;
+use App\Models\contact;
 use Illuminate\Support\Facades\Route;
 
 Route::get('home', function () {
-    return view('users.home');
+
+    $all =  campaign::withCount("numbers")->withCount("success")->withCount("failed")->withCount("sending")->withCount("pending")->get();
+
+    $contact_count = contact::count();
+
+    return view('users.home', compact("all" , "contact_count"));
 });
 
 
@@ -61,6 +68,4 @@ Route::prefix("campaigns")->group(function () {
     Route::post('contacts', [CampaignController::class, 'store_new_contact']);
     Route::post('contacts_import', [CampaignController::class, 'contacts_import']);
     Route::put('{campaign}', [CampaignController::class, 'update']);
-
-
 });
