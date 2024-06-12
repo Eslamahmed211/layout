@@ -28,6 +28,6 @@ class campaign extends Model
 
     function  numbers()
     {
-        return $this->hasMany(campaignContact::class , "campaign_id");
+        return $this->hasMany(campaignContact::class, "campaign_id")->orderBy('order', 'asc');
     }
 }

@@ -1013,6 +1013,29 @@ td {
     font-weight: 700;
 }
 
+.blue {
+    background-color: #daf2fe;
+    color: rgb(59, 130, 246) !important;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 12px;
+
+}
+
+
+
+
+.cancel {
+    background-color: rgb(255, 90, 95);
+    color: white;
+    padding: 3px 12px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
 
 /* pagante */
 .pagnate {

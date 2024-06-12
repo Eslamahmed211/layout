@@ -98,13 +98,6 @@ class contactController extends Controller
     }
 
 
-    public function changeOrder(Request $request)
-    {
-        contact::where('id', $request->id)->update([
-            'order' => $request->order + 1
-        ]);
-        return true;
-    }
 
     function upload_contacts_file(group $group, Request $request)
     {
@@ -122,5 +115,14 @@ class contactController extends Controller
 
         $file_name = " ارقام " . $group->name . ".xlsx";
         return Excel::download(new contactExport($data), $file_name);
+    }
+
+
+    public function changeOrder(Request $request)
+    {
+        contact::where('id', $request->id)->update([
+            'order' => $request->order + 1
+        ]);
+        return true;
     }
 }

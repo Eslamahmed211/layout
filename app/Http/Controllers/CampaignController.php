@@ -159,11 +159,13 @@ class CampaignController extends Controller
         $groups = group::all();
 
 
+
         return view("users/campaigns/edit", compact("devices", "messages", "groups", "campaign"));
     }
 
     function update(Request $request, campaign $campaign)
     {
+
 
         $data = $request->validate([
             'name' => 'required|string',
@@ -208,5 +210,80 @@ class CampaignController extends Controller
 
             return redirect()->back()->with("error", "لم يتم التعديل");
         }
+    }
+
+    public function changeOrder(Request $request)
+    {
+
+        campaignContact::where('id', $request->id)->update([
+            'order' => $request->order + 1
+        ]);
+
+        return true;
+    }
+
+
+    public function update_contact(Request $request)
+    {
+        $data = $request->validate([
+            "idInput" => "required|string",
+            'nameInput' => 'nullable|string',
+            'phoneInput' => 'required|string',
+        ]);
+
+        $data = collect($data)->mapWithKeys(function ($value, $key) {
+            return [str_replace('Input', '', $key) => $value];
+        })->toArray();
+
+        $contact = campaignContact::findOrFail($data["id"]);
+        $contact->update($data);
+        return redirect()->back()->with("success", "تم التعديل بنجاح");
+    }
+
+
+    public function destroy_contact(Request $request)
+    {
+        $contact = campaignContact::where("user_id", auth()->id())->findOrFail($request->delete_id);
+        $contact->delete();
+        return redirect()->back()->with("success", "تم الازالة بنجاح");
+    }
+
+
+    public function store_new_contact(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'nullable|string',
+            'phone' => 'required|string',
+            'campaign_id' => 'required|string',
+        ]);
+
+        $campaign = campaign::findOrFail($data["campaign_id"]);
+
+        campaignContact::create($data);
+        return redirect()->back()->with("success", "تم الاضافة بنجاح");
+    }
+
+    public function contacts_import(Request $request)
+    {
+        $data = $request->validate([
+            'group_id' => 'required|string',
+            'campaign_id' => 'required|string',
+        ]);
+
+        $campaign = campaign::findOrFail($data["campaign_id"]);
+        $group = group::findOrFail($data["group_id"]);
+
+        DB::beginTransaction();
+
+        foreach ($group->contacts as $contact) {
+            campaignContact::create([
+                "campaign_id" => $data['campaign_id'],
+                "name" =>  $contact->name ?? "",
+                "phone" =>  $contact->phone,
+            ]);
+        }
+
+        DB::commit();
+        return redirect()->back()->with("success", "تم الاضافة بنجاح");
     }
 }

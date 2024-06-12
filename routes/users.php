@@ -21,7 +21,6 @@ Route::prefix("groups")->group(function () {
     Route::post('{group}/upload_contacts_file', [contactController::class, 'upload_contacts_file']);
     Route::get('{group}/export', [contactController::class, 'export']);
     Route::get('{group}', [contactController::class, 'show']);
-
 });
 
 Route::prefix("contacts")->group(function () {
@@ -51,6 +50,17 @@ Route::prefix("campaigns")->group(function () {
     Route::get('create', [CampaignController::class, 'create']);
     Route::post('/', [CampaignController::class, 'store']);
     Route::get('{campaign}/edit', [CampaignController::class, 'edit']);
+
+    Route::get('updateNumber/changeOrder', [CampaignController::class, 'changeOrder']);
+
+    Route::put('update_contact', [CampaignController::class, 'update_contact']);
+
+    Route::DELETE('contacts/destroy', [CampaignController::class, 'destroy_contact']);
+
+
+    Route::post('contacts', [CampaignController::class, 'store_new_contact']);
+    Route::post('contacts_import', [CampaignController::class, 'contacts_import']);
     Route::put('{campaign}', [CampaignController::class, 'update']);
+
 
 });
